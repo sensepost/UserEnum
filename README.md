@@ -9,4 +9,4 @@ asn1tools >= 0.53.0
 Notes:
 Python 2 is recommended for all scripts, and is required by the UserEnum_NBS.py script.
 For the UserEnum_LDAP.py script, one should specify the FQDN, i.e. CONTOSO.COM instead of CONTOSO.
-The UserEnum_LDAP.py seems to be the fastest.
+The UserEnum_LDAP.py script seems to be the fastest.
