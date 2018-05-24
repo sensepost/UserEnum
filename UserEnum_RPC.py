@@ -19,9 +19,9 @@ from impacket.dcerpc.v5 import transport
 from impacket.dcerpc.v5.nrpc import MSRPC_UUID_NRPC, hDsrGetDcNameEx,hDsrGetDcNameEx2
 
 if len(sys.argv)!=3:
-	print "UserEnum RPC POC - Reino Mostert/SensePost 2018"
-	print "Usage:   python UserEnum_RPC.py DomainControlerIP Userlist"
-	print "Example: python UserEnum_RPC.py 192.168.1.10 userlist.txt"
+	print("UserEnum RPC POC - Reino Mostert/SensePost 2018")
+	print("Usage:   python UserEnum_RPC.py DomainControlerIP Userlist")
+	print("Example: python UserEnum_RPC.py 192.168.1.10 userlist.txt")
 	sys.exit()
 
 creds={}
@@ -40,11 +40,11 @@ if hasattr(rpctransport, 'set_credentials'):
 	rpctransport.set_credentials(creds['username'], creds['password'], creds['domain'], creds['lmhash'],creds['nthash'], creds['aesKey'])
 
 dce = rpctransport.get_dce_rpc()
-print "[*] Connecting to %s" % machineNameOrIp
+print("[*] Connecting to %s" % machineNameOrIp)
 dce.connect()
-print "[*] DCE binding..."
+print("[*] DCE binding...")
 dce.bind(MSRPC_UUID_NRPC)
-print "[+] Connection and binding succeeded, ready to query"
+print("[+] Connection and binding succeeded, ready to query")
 
 f=open(sys.argv[2])
 usernames=f.readlines();
@@ -58,6 +58,6 @@ for user in usernames:
 	except:
 		pass
 	else:
-		print "[+] %s exists" %(user)
-print "[*] Done "
+		print("[+] %s exists" %(user))
+print("[*] Done ")
 dce.disconnect()
