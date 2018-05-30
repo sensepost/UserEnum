@@ -107,18 +107,18 @@ for user in usernames:
 	)
 
 	databytes_len=len(databytes)
-	
+
 	mail_slot=SMBMailSlot(
 	name='\\MAILSLOT\\NET\\NETLOGON',
 	size=databytes_len+23 #+len('\\MAILSLOT\\NET\\NETLOGON')+1 null byte =23
 	)
 
 	mail_slot_len=len(mail_slot)
-	
+
 	netlogon_header=SMBNetlogon_Protocol_Request_Header(TotalDataCount=databytes_len,DataCount=databytes_len)
 	netlogon_header_len=len(netlogon_header)
 	netlogon_header.DataOffset=mail_slot_len+netlogon_header_len
-	
+
 	nbtdatagram=NBTDatagram(
 	ID=i,
 	Type=17,
@@ -129,18 +129,18 @@ for user in usernames:
 	DestinationName=domainName,
 	SourcePort=138,
 	SourceIP=sourceIP)
-	
+
 	# datagram length is number of bytes following packet offset
 	# thus nbtdatagram+all other -14
 	nbtdatagram.Length=(len(nbtdatagram)+netlogon_header_len+mail_slot_len+databytes_len) -14
 	pkt=bytes(nbtdatagram/netlogon_header/mail_slot/databytes)
-		
+
 	try:
 		client.sendto(pkt,dstHost)
 		(data, addr) = s.recvfrom(512)
 		packet=NBTDatagram(data)
 		if packet[SMBNetlogon_MailSlot_ResponseCode_Only].ResponseCode == 23:
-			print ("[+] " +user+" exits.")
+			print ("[+] " +user+" exist.")
 	except socket.error as msg:
         	print ('[-] Error sending/receiving packets: '  + str(msg))
 	pass
