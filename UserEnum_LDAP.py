@@ -75,11 +75,11 @@ SEQUENCE
   		attributes      SEQUENCE
 		{
 			partialAttribute SEQUENCE
-			{ 
+			{
 				type OCTET STRING,
 				vals SET {
 					value OCTET STRING
-				    } 
+				    }
 			}
 		}
 	}
@@ -131,7 +131,7 @@ for user in usernames:
 		addr = d[1]
 		result=response_asn.decode('LDAPMessage4',reply)['protocolOp']['attributes']['partialAttribute']['vals']['value'][0]
 		if result==19:
-			print ("[+] " +user + " exits")
+			print ("[+] " +user + " exist")
 	except asn1tools.codecs.DecodeTagError:
 		print ('[-] Error in decoding packet. This sometimes happen if the wrong domain name has been supplied. Ensure that its the FQDN, e.g. Contoso.com, and not just Contoso.')
 		pass
