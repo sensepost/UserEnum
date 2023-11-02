@@ -1,3 +1,3 @@
-asn1tools 
+asn1tools==0.146.6
 scapy
-impacket
+impacket==0.9.24
